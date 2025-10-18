@@ -4,5 +4,6 @@ import java.math.BigDecimal;
 
 public record AccountOwnerBalanceDTO(
     String dueno,
-    BigDecimal balanceActual) {
+    BigDecimal balanceActual
+) {
 }

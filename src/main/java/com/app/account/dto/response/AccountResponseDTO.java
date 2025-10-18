@@ -1,4 +1,12 @@
 package com.app.account.dto.response;
 
-public record AccountResponseDTO() {
+import java.math.BigDecimal;
+
+public record AccountResponseDTO(
+        Long id,
+        String numeroCuenta,
+        String dueno,
+        BigDecimal balanceActual,
+        boolean active
+) {
 }
