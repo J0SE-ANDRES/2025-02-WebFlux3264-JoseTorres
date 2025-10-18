@@ -1,5 +1,6 @@
 package com.app.account.service;
 
+import com.app.account.dto.request.UpdateBalanceRequest;
 import com.app.account.entity.Account;
 import com.app.account.repository.AccountRepository;
 import com.app.account.dto.request.AccountRequestDTO;
@@ -57,8 +58,17 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public String update(Long id, AccountRequestDTO request) {
-        return "";
+    public String update(Long id, UpdateBalanceRequest request) {
+        BigDecimal balanceNuevo = request.balance();
+        BigDecimal balanceAnterior;
+
+        Account account = this.getAccountById(id);
+        balanceAnterior = account.getBalance();
+
+        account.setBalance(balanceNuevo);
+        return "La cuenta " + account.getAccountNumber()
+                + " fue actualizada: balanceAnterior=" + balanceAnterior
+                + ", balanceActual=" + balanceNuevo;
     }
 
     @Override
