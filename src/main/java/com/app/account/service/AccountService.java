@@ -5,6 +5,7 @@ import com.app.account.repository.AccountRepository;
 import com.app.account.dto.request.AccountRequestDTO;
 import com.app.account.dto.response.AccountOwnerBalanceDTO;
 import com.app.account.dto.response.AccountResponseDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,12 @@ public class AccountService implements IAccountService {
 
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
+    }
+
+    @Override
+    public Account getAccountById(Long id) {
+        return accountRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("La cuenta con id: " + id + " no existe."));
     }
 
     @Override

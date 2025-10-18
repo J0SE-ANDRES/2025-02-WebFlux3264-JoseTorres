@@ -8,6 +8,11 @@ import com.app.account.dto.response.AccountOwnerBalanceDTO;
 import com.app.account.entity.Account;
 
 public interface IAccountService {
+
+    // Utils
+    Account getAccountById(Long id);
+
+    // CRUD
     AccountResponseDTO create(AccountRequestDTO request);
     List<AccountResponseDTO> getAll();
     AccountResponseDTO getById(Long id);
@@ -15,5 +20,7 @@ public interface IAccountService {
     void delete(Long id);
 
     AccountOwnerBalanceDTO findByNumeroCuenta(String numeroCuenta);
+
+    // Util
     AccountResponseDTO toResponse(Account account);
 }
