@@ -32,7 +32,10 @@ public class AccountService implements IAccountService {
 
     @Override
     public List<AccountResponseDTO> getAll() {
-        return List.of();
+        List<Account> accounts = accountRepository.findAll();
+        return accounts.stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @Override
