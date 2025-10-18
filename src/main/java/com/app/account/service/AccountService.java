@@ -8,6 +8,7 @@ import com.app.account.dto.response.AccountResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -27,7 +28,18 @@ public class AccountService implements IAccountService {
 
     @Override
     public AccountResponseDTO create(AccountRequestDTO request) {
-        return null;
+        String numeroCuenta = request.numeroCuenta();
+        String dueno = request.dueno();
+        BigDecimal balanceActual = request.balanceActual();
+
+        Account account = Account.builder()
+                .setAccountNumber(numeroCuenta)
+                .setOwnerName(dueno)
+                .setBalance(balanceActual)
+                .build();
+
+        accountRepository.save(account);
+        return this.toResponse(account);
     }
 
     @Override

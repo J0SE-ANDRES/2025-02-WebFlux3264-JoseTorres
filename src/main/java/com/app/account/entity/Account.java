@@ -26,6 +26,10 @@ public class Account {
         this.active = active == null ? true : active;
     }
 
+    public static AccountBuilder builder() {
+        return new AccountBuilder();
+    }
+
     public static class AccountBuilder {
 
         private String accountNumber;
