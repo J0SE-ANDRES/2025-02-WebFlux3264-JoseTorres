@@ -73,7 +73,8 @@ public class AccountService implements IAccountService {
 
     @Override
     public void delete(Long id) {
-
+        Account account = this.getAccountById(id);
+        accountRepository.delete(account);
     }
 
     @Override
