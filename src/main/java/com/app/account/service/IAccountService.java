@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.app.account.dto.request.AccountRequestDTO;
 import com.app.account.dto.response.AccountResponseDTO;
-import com.app.account.dto.AccountOwnerBalanceDTO;
+import com.app.account.dto.response.AccountOwnerBalanceDTO;
 
 public interface IAccountService {
     AccountResponseDTO create(AccountRequestDTO request);

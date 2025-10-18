@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.app.account.dto.request.AccountRequestDTO;
 import com.app.account.dto.response.AccountResponseDTO;
-import com.app.account.dto.AccountOwnerBalanceDTO;
+import com.app.account.dto.response.AccountOwnerBalanceDTO;
 import com.app.account.service.IAccountService;
 
 @RestController
