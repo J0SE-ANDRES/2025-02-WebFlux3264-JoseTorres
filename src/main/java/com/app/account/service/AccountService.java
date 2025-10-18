@@ -37,7 +37,8 @@ public class AccountService implements IAccountService {
 
     @Override
     public AccountResponseDTO getById(Long id) {
-        return null;
+        Account account = this.getAccountById(id);
+        return this.toResponse(account);
     }
 
     @Override
