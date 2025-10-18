@@ -56,7 +56,11 @@ public class AccountService implements IAccountService {
 
     @Override
     public AccountOwnerBalanceDTO findByNumeroCuenta(String numeroCuenta) {
-        return null;
+        Account account = accountRepository.findByAccountNumber(numeroCuenta);
+        return new AccountOwnerBalanceDTO(
+                account.getOwnerName(),
+                account.getBalance()
+        );
     }
 
     @Override
