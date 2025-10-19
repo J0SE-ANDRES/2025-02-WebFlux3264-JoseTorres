@@ -2,6 +2,10 @@ package com.app.account.controller;
 
 import java.util.List;
 
+import com.app.account.dto.request.UpdateBalanceRequest;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,32 +25,54 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<AccountResponseDTO> create(@RequestBody AccountRequestDTO request) {
-        return null;
+    public ResponseEntity<AccountResponseDTO> create(@Valid @RequestBody AccountRequestDTO request) {
+        AccountResponseDTO account = service.create(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(account);
     }
 
     @GetMapping
     public ResponseEntity<List<AccountResponseDTO>> getAll() {
-        return null;
+        List<AccountResponseDTO> accountList = service.getAll();
+        return ResponseEntity.ok(accountList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AccountResponseDTO> getById(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        try {
+            AccountResponseDTO account = service.getById(id);
+            return ResponseEntity.status(HttpStatus.CREATED).body(account);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody AccountRequestDTO request) {
-        return null;
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody UpdateBalanceRequest request) {
+        try {
+            String mensaje = service.update(id, request);
+            return ResponseEntity.ok(mensaje);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        try {
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
-    @GetMapping("/{numeroCuenta}")
-    public ResponseEntity<AccountOwnerBalanceDTO> getByNumeroCuenta(@PathVariable String numeroCuenta) {
-        return null;
+    @GetMapping("/buscar/{numeroCuenta}")
+    public ResponseEntity<?> getByNumeroCuenta(@PathVariable String numeroCuenta) {
+        try {
+            AccountOwnerBalanceDTO accountOwnerBalance = service.findByNumeroCuenta(numeroCuenta);
+            return ResponseEntity.ok(accountOwnerBalance);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }
